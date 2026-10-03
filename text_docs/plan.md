@@ -1,9 +1,9 @@
-# work_estate — plan
+# workplace_estate — plan
 
 ```yaml
 state: active
 last_settled: 2026-09-10
-running: v7.0.1        # tagged 2026-09-10 (7.0.0 + review-fix patch; 6.4.0 tagged retroactively the same day)
+running: v7.0.2        # tagged 2026-10-02 (repo rename to workplace_estate; 7.0.1 tagged 2026-09-10)
 re_plan_triggers:      # settle events only, never cadence
   - a seed install or update surfaces a structural gap (missing template, underdetermined layout)
   - the maintainer's upstream working practice settles a change that crosses the porting bar

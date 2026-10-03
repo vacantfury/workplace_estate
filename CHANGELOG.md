@@ -2,6 +2,13 @@
 
 All notable seed changes, one entry per version. Versions are SemVer git tags: MAJOR = a convention reversed or restructured (existing derived layers must regenerate), MINOR = additive (new modules or module sections), PATCH = wording or fix. Each entry names the changed modules and the derived layers they affect — this file is the manifest the update mode (`UNFOLD.md` §Updating an installed estate) reads against the installed version.
 
+## [7.0.2] - 2026-10-02
+
+- Rename: the repo takes the name `workplace_estate` (user decision 2026-10-02). The former name used "work" for the employer side, while the maintainer's practice uses "work" for every unit of work a person does (work nodes in `task-convention.md`); "workplace" names the employer side alone. No module content changed beyond the name.
+- Changed: `UNFOLD.md` provenance-header format now reads `generated from workplace_estate <version>`; headers carrying a former name stay valid (same repo). Design record and plan titles follow the name.
+- Installed-estate migration: one remote set-url, `git remote set-url origin git@github.com:<account>/workplace_estate.git`, with `<account>` taken from the clone's existing remote (the host redirects the former name meanwhile). Optionally rename the clone's folder; update any estate registry row or path that names the clone. Nothing else regenerates.
+- Affects: no derived layers. PATCH.
+
 ## [7.0.1] - 2026-09-10
 
 - Fixed: review fixes the 7.0.0 tag shipped without (wording and coherence only, no convention change): `task-convention.md` names the plan revision field as `schemas.yaml` does (was "planning stamp") and notes that work-node kinds are a separate axis from the project registry's `kind`; `human-agent-collaboration.md` §Two agents (renamed from "Two resident agents"; cross-references in engineering-standards and portable-skills follow) and the verification anchor is defined on first use; `session-discipline.md` notifier policy names the hook events generically (turn-end + idle-notification); `autoflow.md` world-effects sentence split; `corpus/README.md` list punctuation made uniform; `text_docs/plan.md` version lines corrected.

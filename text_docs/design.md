@@ -1,4 +1,4 @@
-# work_estate — design record
+# workplace_estate — design record
 
 *(Repo renamed 2026-08-25 — see CHANGELOG 3.4.1. Former-name references and provenance headers remain valid.)*
 
