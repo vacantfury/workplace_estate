@@ -28,6 +28,13 @@ An **open work tool**, shaped as an installation package: a portable working-con
 4. **Not a bridge:** this repo is not a sync channel; work state never leaves the work device through it.
 5. **Open-tool voice and content scope (design principle 18):** committed content speaks as an open, user-generic work tool — "the user" (or "the maintainer"/"the author" in provenance contexts), never a named owner or a personal-ecosystem counterpart — and describes only the tool ITSELF: knowledge about how any particular user relates the tool to the rest of their estate (what they keep out of it, inventories of what stays elsewhere) is that user's own knowledge and never enters the seed.
 
+## Records and presence on the work device
+
+- **Candid by default.** Records the user keeps for their own benefit in the installed estate (what the work actually costs, honest working notes, health tracking, company observations, their own activity) are kept candid and complete. Conservatism needs a named concrete risk or a real company conflict, never a default. A session designing or advising such a record names that risk or conflict, or records at full grain (design principles 12, 13 and 17).
+- **Revocable presence.** The user's own tools and repo clones may live on the work device where they benefit the user, in the most revocable per-device form (fine-grained per-device tokens and keys). Each landing is logged in the footprint register, and the device-return procedure (`corpus/device-return.md`, issuer-side revocation first) is its paired exit (principle 17).
+- **No work tasks in this repo.** This repo's task list carries seed-development work only. A work-side task found here is moved out.
+- **No person machinery.** The installed estate keeps no person register, relationship system or thread store; employer-context substance stays in ordinary job notes (principle 29).
+
 ## Layout
 
 - `CLAUDE.md` — this file: identity + hard rules, loaded by upstream build sessions and by work-side sessions if the sanctioned tooling reads it.
