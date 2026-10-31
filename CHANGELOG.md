@@ -2,6 +2,12 @@
 
 All notable seed changes, one entry per version. Versions are SemVer git tags: MAJOR = a convention reversed or restructured (existing derived layers must regenerate), MINOR = additive (new modules or module sections), PATCH = wording or fix. Each entry names the changed modules and the derived layers they affect — this file is the manifest the update mode (`UNFOLD.md` §Updating an installed estate) reads against the installed version.
 
+## [7.1.0] - 2026-10-31
+
+- Added: **`engineering-standards.md` §Fix in place before adding**: a change takes the first form that works (fix at the source in place, redesign the structure when it is the cause, add a new piece only with a stated reason and what it replaces); the second fix to the same area stops patching; a temporary fix for something broken now is labeled temporary with the real fix filed at once. Settle-time port of the maintainer's practice.
+- Installed-estate migration: none. Regenerate the engineering-standards derived layer at the next update apply; no skeleton file or schema changed.
+- Affects: derived layers of engineering-standards. MINOR.
+
 ## [7.0.2] - 2026-10-02
 
 - Rename: the repo takes the name `workplace_estate` (user decision 2026-10-02). The former name used "work" for the employer side, while the maintainer's practice uses "work" for every unit of work a person does (work nodes in `task-convention.md`); "workplace" names the employer side alone. No module content changed beyond the name.

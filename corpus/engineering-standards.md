@@ -30,6 +30,15 @@ Defaults for new code. Where the employer or team has an established practice �
 
 - When sizing a capability, seam, standard, or structure, the default is the GENERAL form correct at the known end-state — never the narrow variant with a "prove it on one consumer first, widen later" rider. Narrow-first needs a named concrete risk the general form cannot carry (safety, irreversibility, genuine end-state uncertainty); consumer-count caution alone is never such a risk. Keep the load-bearing boundaries full-grade (gates, typed contracts); drop the conservatism riders. The estate's own infrastructure is founded this way (design principle 25).
 
+## Fix in place before adding
+
+- **A change takes the first form that works, in this order.**
+  1. **Fix in place at the source.** Edit the existing rule, code or structure where the cause lives, not where the symptom shows. A workaround in a caller, a special-case flag or an exception is a patch, even when it edits an existing file.
+  2. **Redesign the structure when the structure is the cause.** Reshape it for the end state: merge, fold or replace. Redesign serves the target and never removes a component just because it causes friction.
+  3. **Add a new piece only when 1 and 2 cannot serve.** That covers a new rule, layer, check, file or exception. State the reason in one line, and name what the new piece replaces or merges.
+- **The second fix to the same area means stop patching.** The next change is a redesign of that area.
+- **Something broken right now** may get a temporary fix only if it is labeled temporary and the real fix is filed at once.
+
 ## Testing (tiered by trigger)
 
 - **Controls before tests.** Where a deterministic control is possible, install the control and test it. Permission backstops, live-session guards, and configured spend limits act before the consequential call (`agent-reliability.md` §One permission policy); a test never substitutes for an enforceable control.
