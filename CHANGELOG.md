@@ -2,6 +2,12 @@
 
 All notable seed changes, one entry per version. Versions are SemVer git tags: MAJOR = a convention reversed or restructured (existing derived layers must regenerate), MINOR = additive (new modules or module sections), PATCH = wording or fix. Each entry names the changed modules and the derived layers they affect — this file is the manifest the update mode (`UNFOLD.md` §Updating an installed estate) reads against the installed version.
 
+## [7.2.0] - 2026-11-08
+
+- Added: **`engineering-standards.md` §Parameters live in config, "A number the user feels needs the user's yes"**: a number that sets how often something reaches the user's browser, screen or attention, or limits how much of their work gets done, enters or changes only with the user's yes; internal numbers stay with the agent under the tuning-path rule. Settle-time port of the maintainer's practice.
+- Installed-estate migration: none. Regenerate the engineering-standards derived layer at the next update apply; no skeleton file or schema changed.
+- Affects: derived layers of engineering-standards. MINOR.
+
 ## [7.1.0] - 2026-10-31
 
 - Added: **`engineering-standards.md` §Fix in place before adding**: a change takes the first form that works (fix at the source in place, redesign the structure when it is the cause, add a new piece only with a stated reason and what it replaces); the second fix to the same area stops patching; a temporary fix for something broken now is labeled temporary with the real fix filed at once. Settle-time port of the maintainer's practice.

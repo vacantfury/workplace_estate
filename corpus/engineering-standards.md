@@ -18,6 +18,7 @@ Defaults for new code. Where the employer or team has an established practice �
 - Any tunable — thresholds, weights, periods, band mappings, model choices — goes in a config file (YAML default) from the start, with code reading it. Fail-safe defaults in code are fine, marked as fail-safes. Pure unit conversions and mathematical constants are the exception.
 - **The categorical twin:** every closed vocabulary — taxonomy, category set, band mapping — carries a typed residual member (`unknown`/`other`) that fails toward attention rather than silent misclassification, plus a named revision signal for the vocabulary itself (e.g. the residual bucket growing past a stated share).
 - **Every heuristic number carries a tuning path:** a heuristic value enters code/config only together with a named way to tune it against real data (eval set, backtest objective, measurement). The tuning harness may come later, but the tuning task is filed at introduction time — a knob nobody can improve from evidence is a defect.
+- **A number the user feels needs the user's yes:** a number that sets how often something reaches the user's browser, screen or attention (a page opened in their signed-in browser, a dialog or nudge, a notification or message to them), or that limits how much of their work gets done, enters or changes only with the user's yes, put to them with the derived value, its basis and its cost. Purely internal numbers (timeouts, retry waits, polling speeds) stay with the agent under the tuning-path rule.
 
 ## Prefer mature tools over reinventing
 
