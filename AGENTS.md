@@ -14,7 +14,7 @@ An **open work tool**, shaped as an installation package: a portable working-con
 
 ## Scope boundary (load-bearing)
 
-**This repo owns:** portable working discipline safe for a corporate device, e.g. the ordered-TODO task convention, engineering standards (uv, parameters-in-config-not-code), session discipline.
+**This repo owns:** portable working discipline safe for a corporate device, e.g. the ordered-TODO task convention, engineering standards (uv, parameters-in-config-not-code), session discipline; and it accepts and releases its own package: a convention ported in from upstream lands here only under the hard content rules below, and each release ships as a seed version (see Commands).
 
 **Never enters this repo:** personal data of any user's, anything derived from any employer, and knowledge about how any particular user relates this tool to the rest of their life; the tool describes only itself.
 
