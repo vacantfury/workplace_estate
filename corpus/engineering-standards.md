@@ -19,6 +19,7 @@ Defaults for new code. Where the employer or team has an established practice �
 - **The categorical twin:** every closed vocabulary — taxonomy, category set, band mapping — carries a typed residual member (`unknown`/`other`) that fails toward attention rather than silent misclassification, plus a named revision signal for the vocabulary itself (e.g. the residual bucket growing past a stated share).
 - **Every heuristic number carries a tuning path:** a heuristic value enters code/config only together with a named way to tune it against real data (eval set, backtest objective, measurement). The tuning harness may come later, but the tuning task is filed at introduction time — a knob nobody can improve from evidence is a defect.
 - **A number the user feels needs the user's yes:** a number that sets how often something reaches the user's browser, screen or attention (a page opened in their signed-in browser, a dialog or nudge, a notification or message to them), or that limits how much of their work gets done, enters or changes only with the user's yes, put to them with the derived value, its basis and its cost. Purely internal numbers (timeouts, retry waits, polling speeds) stay with the agent under the tuning-path rule.
+- **Compare parsed config before committing an edit.** Before committing an edit to structured config (YAML, TOML, JSON), load the old and the new versions and compare them key path by key path. A file that still loads can have keys in the wrong block; the comparison shows every key that moved, appeared or vanished.
 
 ## Prefer mature tools over reinventing
 
@@ -39,6 +40,8 @@ Defaults for new code. Where the employer or team has an established practice �
   3. **Add a new piece only when 1 and 2 cannot serve.** That covers a new rule, layer, check, file or exception. State the reason in one line, and name what the new piece replaces or merges.
 - **The second fix to the same area means stop patching.** The next change is a redesign of that area.
 - **Something broken right now** may get a temporary fix only if it is labeled temporary and the real fix is filed at once.
+- **Unblock first, fix the cause beside.** A lock whose holder is provably dead is released first, through the release helper of the tool that keeps the lock, so the blocked work moves; the cause of the stale lock is fixed beside it, never instead of releasing it.
+- **A region replace reads the region first.** Before replacing the text between two anchors, read everything that lies between them: whatever the new text leaves out is deleted.
 
 ## Testing (tiered by trigger)
 
@@ -60,12 +63,14 @@ addopts = "-m 'not live and not slow and not eval'"
 - **Fast and keyless by default:** `uv run pytest` passes on a fresh clone without network access or keys. Select live, slow, and eval runs deliberately. Quarantine is a known-flaky label, not permission to hide a failure from a release check; a scheduled test-alert job excludes that marker.
 - **Versioned seams carry the strongest duty.** The release gate runs the keyless suite directly against the exact current tree before cutting a tag or release, and refuses on red or a gate error. Seam/contract tests are mandatory: the tag is the consumer contract. Providers ship explicit test helpers for consumers where useful, never auto-registered plugins; helper contract changes follow SemVer.
 - **Narrow CI:** versioned infrastructure runs the keyless suite on push and tag in a fresh checkout. Other projects add CI when shared maintenance or a consumed interface needs it, following the team's pipeline.
+- **Built beside a running path, read back through the old entry too.** New code built beside a path that is already running is verified through the old entry point as well as the new one; a readback through the new entry alone can miss that the running path still takes the old code.
 - **Consequential actions:** gate/executor logic is covered, including fail-closed paths. A fixed implementation defect gets a regression check against its observed failure mode, not a test that merely repeats the implementation.
 - **Substantive builds get an independent review before completion is reported.** Triage findings before declaring done; mechanical edits are exempt. Cross-family review and immutable review inputs follow `human-agent-collaboration.md` §Two agents. Model evals remain judged signals and never replace deterministic controls.
 
 ## Version control
 
 - Commit in small verified units; commit-message style matches the repo's existing log (check it first).
+- **Text that names code goes through a file or a quoted heredoc,** never inside double quotes on a command line: a shell expands backticks and `$` in double quotes and runs what they name. This covers every argument carrying code, commit messages included.
 - Solo repos work directly on main; branch only for risky/abandonable work or parallel isolation. Shared repos: changes to the collaborator-facing contract surface go via branch + PR. No long-lived branches — merge or delete.
 - Released libraries version by SemVer tags (`vX.Y.Z`); tags are immutable — never moved or reused; the change that alters the consumer contract ships its tag in the same session.
 - No force-push without explicit approval; never commit secrets; never rewrite shared history without collaborator acknowledgment.

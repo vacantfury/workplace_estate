@@ -1,7 +1,7 @@
 # skeleton template · genome: corpus/store.md · remove this line at instantiation
-# Entity schemas — one declaration per typed kind; machine-computed fields split from
-# user-judgment fields (the user layer is never overwritten). Registers are VIEWS of
-# store entities once the A7 engine lands; markdown-with-shape is the bootstrap.
+# The store's generic tables; machine-computed fields split from user-judgment fields
+# (the user layer is never overwritten). Registers are VIEWS of store entities once the
+# A7 engine lands; markdown-with-shape is the bootstrap.
 # Scoring folds available to consumers (knobs live in the CONSUMER's config, never here):
 #   estimate (Bayesian posterior, confidence->precision, half-life decay, mean±sigma)
 #   balance  (decay-weighted signed event account)
@@ -9,57 +9,27 @@
 #   bands    (score -> label map)
 
 engine: markdown          # A7 answer; migrating engines never changes the shapes
-# Task semantics and transition refusals: corpus/task-convention.md.
-# Node references are {project, id}; parent is one nullable node reference.
-task_model:
-  kinds: [task, recurring-task, campaign, playbook, bet, organ, unclassified]
-  live_states: [active, dormant-after, dormant-when, waiting, someday, review]
-  terminal_states: [done, dropped]   # withdrawn outcome closes as dropped
-  wall_map_states: [unassessed, assessed-with-rows, assessed-none]
-  deadline_strengths: [hard, near-hard, soft]
-  deadline_origins: [stated, derived]
-  deadline_knowledge: [dated, unknown]
-  close_outcomes: [done, dropped, withdrawn]
-  result_classes: [apply, apply-then-review, consult-window, hold]
-  unknown_result_class: hold             # never grants authority
-  evidence_kinds: [verified, judged]
-  link_kinds: [dependency, contribution, spawn, occurrence]
-  unrecognized_value: reject-and-report
-  classification_residual: unclassified  # visible, never executable
-  residual_ceiling: 0                    # count after reconciliation; audit signal
-  action_buffer_days: 2                  # minimum; evidenced lead time may be longer
-  # Deadlines keep (id, revision) history; id deduplicates maps.
-  # All executor mutations compare node revision and claim generation atomically.
-  # At most one unreleased claim per node; takeover advances the generation.
-  # Residue: none, or [{obligation, kind, node, home}]; every destination must exist.
-entities:
-  signal:                 # company-watch ground layer
-    machine: [date, source, level, text, grade]   # grade: evidence ladder 1-5
-    user: [note]
-  theme:
-    machine: [name, level, lifecycle, strongest_grade, last_confirmed]
-    user: [portfolio_implication]
-  event:                  # personnel/org ground truth
-    machine: [date, kind, who, what]
-    user: [reading]
-  resource:               # compensation claims/windows
-    machine: [name, eligibility, window, state]
-    user: [value_note, decision]
-  tasks:                  # all work nodes; replaces the flat work_item shape
-    machine: [id, kind, parent, project, home, title, body, state, tags, result_class, added, closed, revision, wall_map_state, wall_map_revision, plan_revision, claim_generation, links]
-    user: [named_end, target, scope, rank, pin]  # changed only through recorded user input
-  deadlines:
-    machine: [id, node, date, time, timezone, strength, origin, knowledge, assumption, resolver, source, checked, applicability, lead_time, anchor, offset, revision, supersedes]
-    user: []              # action date is derived, never stored on the task
-  dispositions:
-    machine: [id, node, outcome, closed, evidence_kind, evidence, residue, revision]
-    user: [decision]      # campaign extend/resize/close word, with provenance
-  claims:
-    machine: [id, node, agent, session, generation, acquired, released]
-    user: []              # a won claim grants no authority
-  decision:
-    machine: [date, question, recommendation]
-    user: [decision, outcome]
-  failure_row:
-    machine: [date, what, cause, severity]
-    user: [note]
+# Generic tables only (corpus/store.md). Each project owns its vocabulary in its own
+# schemas.yaml: entity kinds, field meanings, weights and bands.
+#   hub/schemas.yaml           task model, tasks, deadlines, dispositions, claims, decision, failure_row
+#   career/schemas.yaml        signal, theme, event
+#   compensation/schemas.yaml  resource
+# One truth database per project; no table here spans projects.
+tables:
+  entities:               # one row per typed thing; kind names a project schema entry
+    fields: [id, project, kind, slug, fields, created, revision]
+  assessments:            # append-only; corrections are new rows, never edits
+    fields: [id, entity, dimension, value, direction, valid_time, recorded_time, source, confidence, evidence, config_version]
+    direction: [supports, disputes, neutral]   # default supports; neutral adds nothing to the folds
+    valid_time: caller    # when the assessed thing was true; decay runs on it
+    recorded_time: store  # stamped by the store's clock, never the caller's
+    source: [machine, user]                    # the user layer is never overwritten
+  relations:              # typed edges between entities
+    fields: [id, from, to, kind, valid_time, recorded_time, evidence]
+  events:                 # the ledger of state moves and dated happenings
+    fields: [id, entity, kind, at, recorded_time, detail]
+  candidates:             # the intake inbox
+    fields: [id, source, stable_id, kind, payload, state, received, judged, closed, reason, reopen_condition, reopened_by, duplicate_of]
+    states: [received, judged, accepted, dropped]
+    unique: [source, stable_id]                # a re-handoff never revives a drop
+    dropped_requires: [reason, reopen_condition]

@@ -1,0 +1,13 @@
+# skeleton template · genome: corpus/store.md · remove this line at instantiation
+# Career's entity kinds on the store's generic tables (store/schemas/schemas.yaml); weights and bands live here too.
+
+entities:
+  signal:                 # company-watch ground layer
+    machine: [date, source, level, text, grade]   # grade: evidence ladder 1-5
+    user: [note]
+  theme:
+    machine: [name, level, lifecycle, strongest_grade, last_confirmed]
+    user: [portfolio_implication]
+  event:                  # personnel/org ground truth
+    machine: [date, kind, who, what]
+    user: [reading]

@@ -15,6 +15,7 @@ The one-sentence thesis: **human participation improves results exactly where th
 - Decisions reach the human in ONE known format: the concrete options, one recommendation with its reason, the do-nothing consequence, the named default. A decision arriving in a known format costs a fraction of the attention of a free-form "what should we do?"
 - At every choice point, name the exact intended option and pre-empt the plausible wrong one — never leave a branch to the human's guess.
 - Fewer, richer decision points beat many shallow confirmations. Approval fatigue is a real failure mode: a gate the human has stopped reading is a heuristic control pretending to be structural.
+- **A hold is not an answer.** When the user holds a question ("skip for today", or "later at a named time"), the question stays open and is asked again after the hold. A later answer binds only to a presentation made after the hold. A closing verdict the user gave on an item is not re-asked within a short window (its length is a config value the user sets) unless the ask states a new fact. A question is one line, and each reply carries one point. Plain skip is not a hold: it only lowers the item's place (`task-convention.md` §Lists and ranking).
 - **Stage actionable work through one workflow.** Request typing follows `session-discipline.md`: discuss or act; an action is deferred to its task list or executed in the current sitting. For execution, use the ordered stages below. Feeding the user isolated action items without a standing plan is a failure mode even when each step is correct.
 - A flow that would create an account, profile, or identity as a side effect STOPS and names that fact before proceeding — registration is itself an authority-gate press, never something discovered afterwards.
 
@@ -55,12 +56,15 @@ Any recurring orientation or status delivery — the day-start page (`portable-s
 3. Hard wall ahead, action day later → **DEADLINE** — wall date + days-to-wall + origin per line. Directly after the board, ONE compact deadlines-ahead line names beyond-window items with days-to-due (omit when none). When an item's action day arrives it MOVES to ACTION: cross-day movement is the one sanctioned overlap; same-day duplication never (cross-references by name are fine, duplicate lines are not).
 4. A person is waiting on the user or pushed something needing a look (review requests, mentions, direct asks in chat) → **TEAM**.
 5. An active project at its next-show or decision point (the portfolio board read, `project-pipeline.md`) → **PORTFOLIO**.
-6. Otherwise-ranked work → **MAIN** — the TODO head in rank order.
-7. Awareness only → **KNOWLEDGE** — terse FYI lines.
+6. New or meaningfully changed since the user's last read → **NEW FOR YOU**.
+7. Otherwise-ranked work → **MAIN** — the TODO head in rank order.
+8. Awareness only → **KNOWLEDGE** — terse FYI lines.
+
+**Windows:** a passed deadline stays on ACTION for a few grace days (the number is a config value the user sets, since it changes what reaches them); after that it leaves the boards and becomes its custodian's close-or-re-date work. An item whose locus is unknown stays on its board rather than being silently lost.
 
 **Line rules:** uniform anatomy `[source] · what · when-marker · pointer`. One visible line per item — never a prose fold or a ·-joined compression of several items into one line. A re-listed unclosed item carries its age ("since MM-DD"). Items sharing one wall may share one grouped line. **Normal-length-or-absent:** every line is self-explanatory at a read — full phrases, names spelled out, no cryptic fragments; an item not worth a readable line drops to its home (or the counts tail), never onto a board compressed. Compression reduces the number of lines, never a line's readability.
 
-**Silence rules:** empty boards say NOTHING. Deliberately NO waiting board — waiting state lives on task and thread rows and surfaces only as due nudges. An item the user has assigned to another venue leaves the boards; its owning home tracks it. Close with ONE counts/degradation tail line (skipped-bulk counts, stale-source warnings); a real error gets its one line, never silence.
+**Silence rules:** empty boards say NOTHING. Deliberately NO waiting board — waiting state lives on task and thread rows and surfaces only as due nudges. An item the user has assigned to another venue leaves the boards; its owning home tracks it. Machine-locus work and tickets stay with their custodians, off the user's boards (`task-convention.md` §Tickets). Close with ONE counts/degradation tail line (skipped-bulk counts, stale-source warnings); a real error gets its one line, never silence.
 
 **Numbering:** the ACTION board's numbering IS the delivery's reference numbering — the user cites items by position; no second manifest or summary table is layered on top of the boards.
 

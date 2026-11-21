@@ -17,6 +17,7 @@ One home per kind: a locally maintained person store duplicates surfaces the emp
   1. **Needs the user** — a decision, a commitment, a personal reply only they can give. Merges into the hub's attention view; never pushed as its own digest.
   2. **Prepare-and-present** — answerable from the record. A draft is staged; the user reviews and sends.
   3. **Note-only** — FYI. Substance worth keeping is routed to its owning register (a direction signal to the company log, project material to the project record); a message with no consequence gets no residue.
+- **Sweep coverage is proven, never assumed.** Reaching the end of a page proves nothing. Each collection records the range it asked for, the boundary it actually reached, a cursor, and any gaps. Old gaps survive a later partial read. A complete read that no longer lists a held item (a declined meeting) withdraws that item; a partial read says nothing about it. A resume starts at the earlier of the checkpoint and a fixed reach-back floor. Findings not yet judged hold the cursor. Only the cursor and gap record live in ties' state; the employer's surfaces stay the truth, and no thread store is kept.
 - Triage grades, it never summarizes everything. The output is the short needs-you lane plus staged drafts, not a rendering of the whole inbox.
 
 ## Drafts — prepared, never sent
@@ -27,7 +28,7 @@ Two register rules bind every prepared draft. **Polite AND concise:** a warm, co
 
 ## Threads and waits — the surface is the state
 
-A live exchange lives on the employer's mail/chat surface itself: the thread IS the record of who owes what, last touch, and what comes next — one home per wait, and the home is the surface (principle 29 again: no thread store). This bus keeps no conversation state of its own; its only state is the routing rules and the staged-drafts registry. Replies the user owes surface through the triage sweep's needs-the-user lane, read off the surfaces directly.
+A live exchange lives on the employer's mail/chat surface itself: the thread IS the record of who owes what, last touch, and what comes next — one home per wait, and the home is the surface (principle 29 again: no thread store). This bus keeps no conversation state of its own; its only state is the routing rules, the staged-drafts registry, and the sweep's cursor and gap record. Replies the user owes surface through the triage sweep's needs-the-user lane, read off the surfaces directly.
 
 ## Meetings — entered prepared, left recorded
 
@@ -44,4 +45,4 @@ A live exchange lives on the employer's mail/chat surface itself: the thread IS 
 
 ## Fold-away note (for the unfold's A5 pass)
 
-Expected core-adopt: the bus keeps only its routing rules and drafts registry (people are read live off the employer's directory and threads; waits live on the mail/chat surfaces themselves; meeting outcomes in the worklog). What varies by environment is only the sweep's runtime form (scheduled agent · session-opening pass · printed checklist) — the A1/§17 answer decides, exactly as for the rest of the engine.
+Expected core-adopt: the bus keeps only its routing rules, drafts registry, and sweep cursor and gap record (people are read live off the employer's directory and threads; waits live on the mail/chat surfaces themselves; meeting outcomes in the worklog). What varies by environment is only the sweep's runtime form (scheduled agent · session-opening pass · printed checklist) — the A1/§17 answer decides, exactly as for the rest of the engine.

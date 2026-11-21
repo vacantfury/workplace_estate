@@ -7,7 +7,7 @@ projects:
   hub:
     kind: steward
     home: hub/
-    state: [registry.yaml, agent-jobs.yaml, self.md, decisions.md, failures.md, footprint.md, communication.md]
+    state: [registry.yaml, agent-jobs.yaml, schemas.yaml, self.md, decisions.md, failures.md, footprint.md, communication.md]
     genomes: [work-engine, boundary-protocol, device-return, estate-structure, deliberation, self-model, communication-craft, sidework]
     # task-convention + session-discipline are estate-wide law (every project consumes; no project of their own)
     consumes: [store, finder]
@@ -15,7 +15,7 @@ projects:
   store:
     kind: infrastructure
     home: store/
-    state: [schemas/schemas.yaml]
+    state: [schemas/schemas.yaml]   # generic tables only; each project's vocabulary is its own schemas.yaml
     genomes: [store]
     engine: markdown        # A7 answer: markdown-with-shape bootstrap | <embedded db> | <tooling memory>
     consumes: []
@@ -30,7 +30,7 @@ projects:
   ties:
     kind: infrastructure
     home: ties/
-    state: [routing.md, drafts.md]   # no person stores anywhere in the estate (principle 29)
+    state: [routing.md, drafts.md]   # routing.md holds the sweep coverage record; no person stores anywhere in the estate (principle 29)
     genomes: [ties]
     consumes: [finder]
     feeds: [hub, worklog, career]    # attention view · meeting records · direction signals
@@ -44,14 +44,14 @@ projects:
   compensation:
     kind: function
     home: compensation/
-    state: [compensation.md]
+    state: [compensation.md, schemas.yaml]
     genomes: [compensation]
     consumes: [store, finder]
     feeds: [hub]            # due windows into the attention view
   career:
     kind: function
     home: career/
-    state: [review.md, promotion.md, growth.md, themes.md, company.md]
+    state: [review.md, promotion.md, growth.md, themes.md, company.md, schemas.yaml]
     genomes: [career, company-watch]
     consumes: [store, finder]
     feeds: [main-work, hub] # alignment re-scoring · attention view

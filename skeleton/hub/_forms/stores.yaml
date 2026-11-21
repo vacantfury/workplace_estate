@@ -1,0 +1,34 @@
+# form template (lazy-founded) · genome: corpus/store.md (data declarations) · instantiate as <project>/stores.yaml at the project's FIRST store in the data home, never before
+# The project's data declarations: every store it writes, declared before the first write.
+# Undeclared reads as unknown and is kept; in doubt, data counts as unique. Until this file
+# exists, every markdown state file of the project counts as unique.
+# The employer's data-retention policy wins over any retention declared here.
+
+schema_version: 1
+project: <project>
+stores:
+  - id: <store id>          # stable; named in copies, receipts and tickets
+    storage:
+      type: <database | folder | file>
+      path: <path under data/<project>/>   # data lives only in the data home
+    lifecycle:
+      kind: <truth | tool-database | inputs | cache | outputs | other>
+      keep: <unique | unknown | reproducible | disposable>
+      regeneration_source: <what rebuilds it; required when keep is reproducible, else null>
+      retention:
+        after: <the event that starts the clock, e.g. the row is finished and unreferenced>
+        keep_for: <duration; the grace age before archive or retirement>
+      operations:           # each: forbidden | automatic | user-press
+        compress: <forbidden | automatic | user-press>
+        retire: <forbidden | automatic | user-press>
+        archive: <forbidden | automatic | user-press>
+        move: <forbidden | automatic | user-press>
+
+# Copies of a store (taken before a change, for an audit, as evidence) are recorded in the
+# store's copy ledger under a declared class. Each class states its purpose and the reason
+# for its keep rule; a pin holds a copy while a finding or decision relies on it.
+copy_classes:
+  - class: <class name>
+    purpose: <why copies of this class are made>
+    keep: <the keep rule, e.g. until a later verified backup covers it and no pin holds it>
+    reason: <why that keep rule is right for this class>

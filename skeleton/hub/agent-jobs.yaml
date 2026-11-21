@@ -62,13 +62,30 @@ jobs:
     priority: 1
     output: health/health.md
     escalation: a crossed floor is named at the moment
-  - id: self-audit
-    lane: hub
-    purpose: failures/boards/conventions sweep + backup-verified check + calibration reads
-    cadence: on-event               # periodic; the estate's improvement loop
-    priority: 5
-    output: hub/failures.md
-    escalation: highest-value fixes as one batch; behavior changes wait for the user
+  # The self-audit is not a job: it runs only when the user starts it in a session, and its
+  # fixes are made in that session (estate-structure.md, the failures log and the self-audit).
+  #
+  # Optional entries, commented out: each is enabled only on the user's yes to its trigger,
+  # cadence and what it shows them.
+  # - id: restore-drill
+  #   lane: store
+  #   purpose: restore the backup into scratch, check every database and file, record a receipt (store.md)
+  #   cadence: on-event             # the window the user chooses when enabling it
+  #   priority: 5
+  #   output: store's drill receipts
+  #   escalation: a failed drill, or the newest passed drill older than its window
+  #   marker: <the newest receipt>
+  #   silence_h: <the window the user chose>
+  # - id: ticket-repair
+  #   lane: hub                     # run by autoflow (autoflow.md, the ticket repair run)
+  #   purpose: one session per project works its urgent and important tickets
+  #   cadence: daily
+  #   priority: 3
+  #   output: the tickets' notes      # each try and what its session did
+  #   escalation: none; an unfinished run shows as its own failing ticket
+  #   gate: fixes to employer repositories go through the team's review
+  #   marker: <the run's success marker>
+  #   silence_h: <set with the cadence>
   - id: seed-update-check
     lane: hub
     purpose: read-only seed update check (fetch + changelog vs installed version)

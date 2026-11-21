@@ -94,9 +94,19 @@ Trigger: a change is functionally complete, before merge.
 3. Separately hunt bugs: edge cases, error paths, concurrency, off-by-ones.
 4. Apply mechanical fixes directly; raise behavior-changing findings for discussion.
 
+## live-store-write
+
+Trigger: any hand-run write, repair or migration on a live store (`store.md`): a merge, a move, a rekey, a repair, any one-off write outside the store's ordinary write path.
+
+1. **Rollback copy.** Take a rollback copy of every store the write touches, and read its output: every database copied, none failed. Where a write leaves an append-only receipt, it cannot be undone in place; this copy is the way back.
+2. **Clean export.** Run from a clean export of committed code, never from a shared working copy (it may hold another session's unsaved edits). Confirm that the code that runs is the export's.
+3. **Dry run first,** and read the plan it prints.
+4. **Apply** with the actor and the reason recorded.
+5. **Read back from the store itself:** the write's own verify where it has one, and a read of the rows or files it changed. A clean exit is not the readback.
+
 ## audit-instructions
 
-Trigger: periodic, or when an instruction surface visibly misfires (references a dead file, never fires when it should, overlaps another).
+Trigger: the user's ask. A session that meets its symptom (an instruction surface visibly misfiring: it references a dead file, never fires when it should, or overlaps another) may offer it once and never starts it by itself.
 
 1. Roster all instruction surfaces (always-loaded files, skills, checklists); verify their references still exist.
 2. Mine recent usage: did each fire, did it help, was it corrected.
@@ -105,7 +115,7 @@ Trigger: periodic, or when an instruction surface visibly misfires (references a
 
 ## audit-law
 
-Trigger: periodic; when two law/knowledge surfaces contradict each other; and always after the unfold regenerates local adaptations.
+Trigger: the user's ask. A session that meets its symptom (two law or knowledge surfaces contradicting each other, or the unfold having just regenerated local adaptations) may offer it once and never starts it by itself.
 
 1. Roster the law and knowledge surfaces: binding rules and conventions (the committed corpus is canonical), unfold-generated local adaptations, knowledge digests, agent instruction files.
 2. Deterministic pass first: referenced files and sections still exist; dated items that came due; every adapted copy names the canonical it derives from.
@@ -114,7 +124,7 @@ Trigger: periodic; when two law/knowledge surfaces contradict each other; and al
 
 ## audit-conversations
 
-Trigger: periodic, or after a stretch of sessions that felt rough.
+Trigger: the user's ask. A session that meets its symptom (a stretch of sessions that felt rough) may offer it once and never starts it by itself.
 
 1. Gather whatever recent agent-conversation history the sanctioned tooling exposes (transcripts, logs, chat history). If it exposes none, collect the user's reported pain points instead.
 2. Scan for the user's own frustration and correction signals: emphatic punctuation runs, repeated corrections, "I already said" moments.
@@ -123,7 +133,7 @@ Trigger: periodic, or after a stretch of sessions that felt rough.
 
 ## audit-structure
 
-Trigger: evidence-driven only, never cadence: symptoms recurring across prior audits that point at a container rather than its content (items with no clear home, the same content moved twice, a file grown past its stated purpose).
+Trigger: the user's ask, never cadence. A session that meets its symptom (symptoms recurring across prior audits that point at a container rather than its content: items with no clear home, the same content moved twice, a file grown past its stated purpose) may offer it once and never starts it by itself.
 
 1. Roster the containers: folder layout, module boundaries, the task convention, state files.
 2. For each recurring symptom, ask whether the container's shape (not the content) caused it.
@@ -132,7 +142,7 @@ Since v3 its evidence includes the hub's registry GRAPH: kinds, consumes/feeds e
 
 ## audit-tools
 
-Trigger: periodic, or a tool/automation visibly limping without being an incident.
+Trigger: the user's ask. A session that meets its symptom (a tool or automation visibly limping without being an incident) may offer it once and never starts it by itself.
 
 1. Roster the tools and automations in use (editor and agent wiring, scripts, hooks, scheduled jobs), each with its evidence trail: logs, stamps, last outputs.
 2. Verify each is alive and earning its keep: when it last ran, when it last produced something useful, whether failure rows cite it.
@@ -141,7 +151,7 @@ Since v3 the roster includes the infrastructure trio's connectors (store engine,
 
 ## audit-overlap
 
-Trigger: periodic, or on suspicion that the same logic lives in two places ("is this duplicated somewhere", structures that feel half-replaced by something newer).
+Trigger: the user's ask. A session that meets its symptom (suspicion that the same logic lives in two places: "is this duplicated somewhere", structures that feel half-replaced by something newer) may offer it once and never starts it by itself.
 
 1. Collect deterministically first, across the estate's own code and doc surfaces: dead/unused code (linter dead-code passes), unused dependencies, copy-paste clones, duplicate symbol names, residue name patterns (`*_old`, `*_v1`, `*_backup`, `copy`), and things a newer thing visibly superseded (version-control history shows the replacement landing while the old form stayed).
 2. Give every finding a reasoned verdict: **keep** (good overlap — record why, so it never re-surfaces) · **sweep** (residue — delete, lossless via version control) · **merge** (live duplication — extract to ONE home, consumers cite it; a capability two projects both need is infrastructure debt, `estate-structure.md`).
@@ -153,20 +163,27 @@ Trigger: periodic, or on suspicion that the same logic lives in two places ("is 
 Trigger: the user corrects the agent's work or labels something a failure; a shipped change regresses; any defect worth remembering. Runs in the same session as the incident:
 
 1. Fix the live work first. The record never substitutes for the fix.
-2. Log one row in a local failures ledger (a plain gitignored file under the workspace's local state): date · what happened in one line · cause class (instruction gap / verification gap / tooling / process / packaging of a human-executed step) · severity band (low / med / high).
+2. Log one row in a local failures ledger (a plain gitignored file under the workspace's local state): date · what happened in one line · cause class (instruction gap / verification gap / tooling / process / packaging of a human-executed step) · loss level (critical / major / time / none / unknown: what the user loses if it stays broken, `estate-structure.md` §The failures log and the self-audit).
 3. If the same failure class already has a written rule, a second occurrence escalates the fix from rule text to enforcement (a check, a hook, a pipeline stage), never a third restatement.
 
 ## audit-failures
 
-Trigger: periodic, or when deciding what to fix first in how the working system itself runs.
+Trigger: the user's ask. A session that meets its symptom (failures that keep coming back, or a choice of what to fix first in how the working system itself runs) may offer it once and never starts it by itself.
 
-1. Aggregate the failure-capture rows by cause class, weighted by severity, never raw counts.
-2. For the top classes, decide leave vs fix. A fix targets the root (the instruction surface, the tool, the gate), not the symptom.
-3. This ledger is the outcome record the human-agent boundary rule reads (see `human-agent-collaboration.md`): a measured failure deficit adds a gate or check back; a clean record supports removing one.
+The clue-driven run that `estate-structure.md` §The failures log and the self-audit defines; that section holds the rules, this is the order of work.
+
+1. **Make clues** with the fixed rules over the failures log, the task lists and the job markers; a rule that cannot read answers unavailable.
+2. **Merge** them with the stored clues by rule and key.
+3. **Look** once per subject the open clues share: the broken thing, its cause, real defect or not, every relied-on record quoted.
+4. **Confirm the quotes** (`agent-reliability.md`, quote confirmation); an unconfirmed quote makes the problem Unknown.
+5. **Level** each confirmed problem by the loss test.
+6. **Treat** it by its level, and make the fixes in this session under each project's own rules. A fix targets the root (the instruction surface, the tool, the gate), not the symptom; behavior-changing fixes wait for the user's word.
+7. **Record the yield** per rule.
+8. The failures log is the outcome record the human-agent boundary rule reads (see `human-agent-collaboration.md`): a measured failure deficit adds a gate or check back; a clean record supports removing one.
 
 ## improvement-loop dispatch
 
-The audits above form ONE family over the working system's estates: procedures (audit-instructions) · law and knowledge (audit-law) · lived experience (audit-conversations) · structures (audit-structure) · tools (audit-tools) · code overlap (audit-overlap) · failures (failure-capture feeding audit-failures). "Optimize everything" means: run whichever members are due, then consolidate every proposal into ONE approval batch, never a drip of asks. The loop optimizes the working SYSTEM; the work content itself is governed by its own plans and reviews. The settle-time WRITE transforms — capture-at-settle (`session-discipline.md`) · workflow-extraction · generalize — are the same loop's write phase: the audits correct what the settle moments failed to capture.
+The audits above form ONE family over the working system's estates: procedures (audit-instructions) · law and knowledge (audit-law) · lived experience (audit-conversations) · structures (audit-structure) · tools (audit-tools) · code overlap (audit-overlap) · failures (failure-capture feeding audit-failures). "Optimize everything" means: run the members the user names, or the ones current clues point at, never on a schedule; then consolidate every proposal into ONE approval batch, never a drip of asks. The loop optimizes the working SYSTEM; the work content itself is governed by its own plans and reviews. The settle-time WRITE transforms — capture-at-settle (`session-discipline.md`) · workflow-extraction · generalize — are the same loop's write phase: the audits correct what the settle moments failed to capture.
 
 ## error-analysis
 

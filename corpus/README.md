@@ -6,18 +6,18 @@ One line per module; the module itself is the full statement.
 
 **Estate-wide law (every project consumes; no project of their own):**
 
-- `task-convention.md` — the work tree, deadline rows and derived action dates, transition refusals, typed dispositions, atomic claims, ordered lists, generated views, and cold resumption.
+- `task-convention.md` — the work tree and its types (tickets, decisions, notices, engagements), accountability at filing, find before file, deadline rows and derived action dates, transition refusals, typed dispositions, atomic claims, ordered lists with one order every view reads, generated views, and cold resumption.
 - `session-discipline.md` — request typing, the session record and rendered close, notification policy, verification, capture-at-settle, form selection, attention, and parking.
-- `engineering-standards.md` — tooling, config, mature tools, controls-first testing, keyless pytest defaults, release gates and review, version control, secret hygiene, and authority.
+- `engineering-standards.md` — tooling, config (and key-by-key review of config edits), mature tools, shell and edit safety, controls-first testing, keyless pytest defaults, release gates and review, version control, secret hygiene, and authority.
 - `role-playbook.md` — applied-science working conventions for LLM product features; provisional until confirmed against team practice.
-- `agent-reliability.md` — the verification ladder, structural controls, one permission policy across hosts, irreversibility classes, and cited eval cautions.
-- `human-agent-collaboration.md` — typed human roles, staged action, two agents, result classes, cross-family review, choice surfaces, boards, and correction harvest.
+- `agent-reliability.md` — the verification ladder, intent before effect, unavailable never fine, quote confirmation for model judgments, structural controls, one permission policy across hosts, irreversibility classes, and cited eval cautions.
+- `human-agent-collaboration.md` — typed human roles, staged action, two agents, result classes, cross-family review, choice surfaces, boards (passed-deadline windows, holds that are not answers), and correction harvest.
 - `communication-craft.md` — communication as a trained capability: artifact harvest, coach passes, pre-flight assists; log under the hub's engine.
-- `portable-skills.md` — one canonical procedure with scoped skill delivery, plus full procedures for debugging, results-triage, project-founding, digs, event-prep, day-start, and peers.
+- `portable-skills.md` — one canonical procedure with scoped skill delivery, plus full procedures for debugging, results-triage, project-founding, digs, event-prep, day-start, peers, the user-started audits, and hand-run writes to a live store.
 
 **The hub (steward-mind) genomes:**
 
-- `estate-structure.md` — the estate's shared structure: attention view, campaigns + playbooks, lessons/handbook, the law layer, failures log + self-audit, kinds + dependency rule, crossing protocol, the concrete tree, data-shape rule, placement map, forecast lines.
+- `estate-structure.md` — the estate's shared structure: attention view, campaigns + playbooks, lessons/handbook, the law layer (placement and audience of rules), failures log + the user-started, clue-driven self-audit, kinds + dependency rule, crossing protocol (links by stable name, facts-only payloads), the concrete tree, data-shape rule, placement map, forecast lines.
 - `work-engine.md` — the composition: every module a lane of ONE running workflow; the agent-jobs registry, budget-ranked queue, autonomy gradient, rails.
 - `boundary-protocol.md` — what belongs where: the self-contained premise, record grain rule, division of subject matter, credential rules.
 - `device-return.md` — the uninstaller: footprint register, triggers, exit procedure (issuer-side revocation first).
@@ -27,12 +27,12 @@ One line per module; the module itself is the full statement.
 
 **Infrastructure charters (independent projects; connectors and incumbents sit BEHIND each seam):**
 
-- `store.md` — typed data + scoring service: schemas per entity kind, four scoring folds, append-only + user-layer protection; registers are its views.
+- `store.md` — typed data + scoring service: generic tables (each project owns its vocabulary), four scoring folds, directed and two-time assessments, append-only + user-layer protection, data declarations and keep classes, consistent backups and the restore drill, archive before delete, intake with recorded drops; registers are its views.
 - `finder.md` — the retrieval bus: one query seam over the job's knowledge surfaces + sanctioned web (A8 roster); digs and watches ride it.
-- `ties.md` — the people-and-traffic bus on the employer's own surfaces: live person reads (no stores, principle 29), three-lane triage, inert drafts, the meeting flow.
+- `ties.md` — the people-and-traffic bus on the employer's own surfaces: live person reads (no stores, principle 29), three-lane triage with proven sweep coverage, inert drafts, the meeting flow.
 - `llm_utils.md` — the LLM provider seam: routing, retries, structured output, usage ledger; founds at the first code consumer.
 - `devices.md` — the compute and device client: registry, dispatch seam, run state; founds at the first granted compute target.
-- `autoflow.md` — scheduler, cycles, isolated work units, checked promotion through a serialized merge queue, verification capacity, run ledger, and liveness; founds at the first sanctioned scheduled job.
+- `autoflow.md` — scheduler, cycles, isolated work units, checked promotion through a serialized merge queue, verification capacity, run ledger, liveness, and the optional ticket repair run; founds at the first sanctioned scheduled job.
 - `auto_research.md` — the autonomous research engine: the lane's standing jobs + the candidate funnel (the funnel never founds a bet); founds with the lane's first standing job.
 
 **Function-project genomes:**

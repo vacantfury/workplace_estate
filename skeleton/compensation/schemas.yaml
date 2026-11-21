@@ -1,0 +1,7 @@
+# skeleton template · genome: corpus/store.md · remove this line at instantiation
+# Compensation's entity kinds on the store's generic tables (store/schemas/schemas.yaml); weights and bands live here too.
+
+entities:
+  resource:               # compensation claims/windows
+    machine: [name, eligibility, window, state]
+    user: [value_note, decision]

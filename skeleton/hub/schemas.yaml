@@ -1,0 +1,76 @@
+# skeleton template · genome: corpus/task-convention.md · remove this line at instantiation
+# The hub's own entity vocabulary: the task tool and the self-audit. Machine-computed
+# fields are split from user-judgment fields (the user layer is never overwritten).
+# These are the hub's own tables in its truth database, beside the store's generic
+# tables (store/schemas/schemas.yaml); other projects reach them only through the
+# crossing protocol (corpus/estate-structure.md).
+
+# Task semantics and transition refusals: corpus/task-convention.md.
+# Node references are {project, id}; parent is one nullable node reference.
+# A project is a registry node (hub/registry.yaml), never a task kind.
+task_model:
+  kinds: [task, recurring-task, ticket, campaign, playbook, decision, invitation, notice, engagement, unclassified]
+  live_states: [active, dormant-after, dormant-when, waiting, someday, review]
+  terminal_states: [done, dropped]   # withdrawn outcome closes as dropped
+  wall_map_states: [unassessed, assessed-with-rows, assessed-none]
+  deadline_strengths: [hard, near-hard, soft]
+  deadline_origins: [stated, derived]
+  deadline_knowledge: [dated, unknown]
+  close_outcomes: [done, dropped, withdrawn]
+  result_classes: [apply, apply-then-review, consult-window, hold]
+  unknown_result_class: hold             # never grants authority
+  evidence_kinds: [verified, judged]
+  link_kinds: [dependency, contribution, spawn, occurrence, came_from]   # came_from never closes its origin
+  authority_types: [decision, authorization, observation, physical, press]
+  consequence_residual: unknown          # reviewed unknown when the facts support no class
+  starved_readings: [never-had-steps, all-done, all-someday]
+  starved_questions: [extend, resize, close, hold]   # asked once per episode
+  importance: [urgent, important, routine, none]     # a ticket's importance belongs to its check
+  unrecognized_value: reject-and-report
+  classification_residual: unclassified  # visible, never executable; never leads an order
+  residual_ceiling: 0                    # count after reconciliation; audit signal
+  action_buffer_days: 2                  # minimum; evidenced lead time may be longer
+  # Deadlines keep (id, revision) history; id deduplicates maps.
+  # All executor mutations compare node revision and claim generation atomically.
+  # At most one unreleased claim per node; takeover advances the generation.
+  # Residue: none, or [{obligation, kind, node, home}]; every destination must exist.
+  # Accountable at filing: user_source + authority + next_step, or responsible_party + review_at.
+
+facets:                   # registered groups of typed fields; each names the rule that acts on it
+  outbound:
+    values: [message, submission, registration, rsvp, publication, purchase, other]
+    rule: the last step is the user's press; an outbound item never carries system locus
+  by:
+    values: [user, hybrid, system]
+    rule: locus states capability, never authority
+
+entities:
+  tasks:                  # all work nodes
+    machine: [id, kind, parent, project, home, title, body, state, tags, facets, result_class, added, closed, revision, wall_map_state, wall_map_revision, plan_revision, claim_generation, links, user_source, authority, next_step, responsible_party, review_at, consequence_class, consequence_evidence]
+    user: [named_end, target, scope, rank, pin, hold]  # changed only through recorded user input; a hold is the user's word
+  ticket:                 # one per check and project; reopens with a new spell
+    machine: [check, importance, since, fails, last_seen, evidence, items, tries, spells]
+    user: []              # only the check's own pass closes it
+  deadlines:
+    machine: [id, node, date, time, timezone, strength, origin, knowledge, assumption, resolver, source, checked, applicability, lead_time, anchor, offset, revision, supersedes, retired, retired_evidence]
+    user: []              # action date is derived, never stored on the task; a retired row stays in history
+  dispositions:
+    machine: [id, node, outcome, closed, evidence_kind, evidence, residue, revision]
+    user: [decision]      # campaign extend/resize/close word, with provenance
+  claims:
+    machine: [id, node, agent, session, generation, acquired, released]
+    user: []              # a won claim grants no authority
+  decision:
+    machine: [date, question, recommendation]
+    user: [decision, outcome]
+
+  # The self-audit (run only when the user starts it in a session).
+  failure_row:
+    machine: [date, what, cause, level]   # level: critical|major|time|none|unknown; unknown stays visible, never counted as none
+    user: [note]
+  clue:                   # a sign, found by a fixed rule written in advance, that a project's failure handling is not working
+    machine: [rule, key, subject, first_seen, last_seen, state, pointers]
+    user: []
+  problem:                # one found problem; its level is asked of this problem alone
+    machine: [kind, key, level, quotes_confirmed, ticket]
+    user: [note]

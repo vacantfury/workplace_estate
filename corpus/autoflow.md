@@ -24,6 +24,17 @@ Automated work runs in an isolated workspace and enters the main state only thro
 
 **With ample budget, verified-merge throughput is the scarce resource.** Throttle dispatch by a work-in-progress cap sized to the check and merge queue, not by spend. Put spare compute into redundant verification and adversarial checkers. Redundancy carries deliberate variance in model family, framing, or decomposition; identical replicas share failure modes. Keep the WIP cap and check-suite selection in installed config, with queue depth, check latency, rejected promotions, and escaped defects as the tuning data. If budget actually binds, the existing queue budget still applies; authority never changes with budget.
 
+## The ticket repair run (optional)
+
+Runs only where scheduled runs are sanctioned (§Runtime adaptation, first case) and the user confirmed its trigger and cadence; until then its entry in `hub/agent-jobs.yaml` stays commented out. It works the tickets that checks have filed (`task-convention.md` §Tickets). It is not an audit and makes no clues.
+
+- **One run a day.** Nothing a ticket does starts it.
+- **One session per project.** The session takes that project's due urgent and important tickets together.
+- **The try is recorded before the start.** Each try is written on its ticket before its session starts. At most two started tries per failing spell. A refused start (budget held, host unavailable) uses up its day but not a try.
+- **The session never closes a ticket.** It writes on each ticket what it did; the check's next pass closes it.
+- **The run reports itself as a check,** so a run that did not finish is a failing ticket like any other.
+- **Employer repositories:** the fix lands through the team's review (`dev-workflow.md`), never a direct commit.
+
 ## Runtime adaptation (canonical here; resolved by unfold A1)
 
 - *Full agent harness with scheduled runs sanctioned* → jobs run as actual scheduled/background workers.
