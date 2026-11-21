@@ -1,7 +1,7 @@
 <!-- skeleton template · genome: corpus/deliberation.md · remove this line at instantiation -->
 # Decision log (estate-wide)
 
-*One dated entry per decision-grade moment the hub's council ran: question · each seat's position in one line · recommendation · the user's decision · outcome (filled later; the self-audit reads decided-vs-outcome). Project-scoped decisions live with their project, not here.*
+*One dated entry per decision-grade moment the hub's council ran: question · each seat's position in one line · recommendation · the user's decision · outcome (filled later; a calibration read on the user's ask uses decided-vs-outcome). Project-scoped decisions live with their project, not here.*
 
 <!-- ## YYYY-MM-DD · <question>
 - first-person: …

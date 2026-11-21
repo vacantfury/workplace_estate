@@ -72,7 +72,7 @@ jobs:
   #   purpose: restore the backup into scratch, check every database and file, record a receipt (store.md)
   #   cadence: on-event             # the window the user chooses when enabling it
   #   priority: 5
-  #   output: store's drill receipts
+  #   output: store/NOW.md, Restore drills (an events row of kind restore-drill once an engine runs)
   #   escalation: a failed drill, or the newest passed drill older than its window
   #   marker: <the newest receipt>
   #   silence_h: <the window the user chose>

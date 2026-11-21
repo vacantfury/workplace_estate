@@ -68,7 +68,7 @@ projects:
     state: [risks.md]
     genomes: [risk-register]
     consumes: []
-    feeds: [main-work, hub] # premortems at accept · calibration at self-audit
+    feeds: [main-work, hub] # premortems at accept · calibration on the user's ask
   research:
     kind: function          # instantiated only where intake §18 clears personal-stack presence
     home: research/

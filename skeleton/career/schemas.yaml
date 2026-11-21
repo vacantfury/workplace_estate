@@ -1,6 +1,8 @@
 # skeleton template · genome: corpus/store.md · remove this line at instantiation
 # Career's entity kinds on the store's generic tables (store/schemas/schemas.yaml); weights and bands live here too.
 
+schema_version: 1         # bumps on a removed or retyped field; an added field is minor
+
 entities:
   signal:                 # company-watch ground layer
     machine: [date, source, level, text, grade]   # grade: evidence ladder 1-5

@@ -78,7 +78,7 @@ Anti-patterns this exists to prevent: work accumulating with no registered home;
 
 Trigger: a project needs a SCOPED discovery — one question, a bounded sweep for candidates (people worth knowing for a named goal, internal events in a window, teams or projects touching a topic, transfer/program opportunities) — bigger than one query, smaller than a standing watch.
 
-1. The commissioning project writes a dig BRIEF: the question, the candidate shape (entity kind + fields per the store's schema), scope bounds, and what "worth surfacing" means — the scoring config stays with the commissioning project.
+1. The commissioning project writes a dig BRIEF: the question, the candidate shape (entity kind + fields per the commissioning project's `schemas.yaml`), scope bounds, and what "worth surfacing" means — the scoring config stays with the commissioning project.
 2. The dig runs through the finder (`finder.md`), across every channel the roster reaches; per-dig hand-rolled channel access is the same defect as ever.
 3. Candidates land as typed store entries (`store.md`) with evidence pointers; scoring runs in the store per the brief; the commissioning project judges the shortlist.
 4. The dig CLOSES — report, shortlist, what was not covered. Anything continuing becomes a standing watch (engine job) by explicit decision, never by drift.
@@ -163,7 +163,7 @@ Trigger: the user's ask. A session that meets its symptom (suspicion that the sa
 Trigger: the user corrects the agent's work or labels something a failure; a shipped change regresses; any defect worth remembering. Runs in the same session as the incident:
 
 1. Fix the live work first. The record never substitutes for the fix.
-2. Log one row in a local failures ledger (a plain gitignored file under the workspace's local state): date · what happened in one line · cause class (instruction gap / verification gap / tooling / process / packaging of a human-executed step) · loss level (critical / major / time / none / unknown: what the user loses if it stays broken, `estate-structure.md` §The failures log and the self-audit).
+2. Log one row in a local failures ledger (a plain gitignored file under the workspace's local state; in the estate, the hub's failures log): date · what happened in one line · cause class (instruction gap / verification gap / tooling / process / packaging of a human-executed step) · loss level (critical / major / time / none / unknown: what the user loses if it stays broken, `estate-structure.md` §The failures log and the self-audit).
 3. If the same failure class already has a written rule, a second occurrence escalates the fix from rule text to enforcement (a check, a hook, a pipeline stage), never a third restatement.
 
 ## audit-failures

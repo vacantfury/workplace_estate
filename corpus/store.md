@@ -4,7 +4,7 @@
 
 ## The service
 
-- **The store keeps the generic tables; each project owns its vocabulary.** The store provides five generic tables: `entities`, `assessments` (append-only and evidenced, machine rows split from the user's own), `relations`, `events` and `candidates` (the intake inbox, below), and it executes scoring. Each project owns its entity kinds, what their fields mean, and its weights and bands, in a `schemas.yaml` in its own project folder: the hub's holds the task model and the self-audit rows, career's the `signal`, `theme` and `event` kinds, compensation's the `resource` kind. The store's own `schemas/schemas.yaml` declares only the generic tables. Each kind's schema names its fields and which are machine-computed versus the user's own judgment; registers never invent ad-hoc shapes.
+- **The store keeps the generic tables; each project owns its vocabulary.** The store provides five generic tables: `entities`, `assessments` (append-only and evidenced, machine rows split from the user's own), `relations`, `events` and `candidates` (the intake inbox, below), and it executes scoring. Each project owns its entity kinds, what their fields mean, and its weights and bands, in a `schemas.yaml` in its own project folder (with its `schema_version`). A project's entity kinds are rows of the generic tables; a tool with its own row semantics (the hub's task tool) keeps its own tables in the project's truth database instead. The hub's `schemas.yaml` holds the task model and the self-audit rows, career's the `signal`, `theme` and `event` kinds, compensation's the `resource` kind. The store's own `schemas/schemas.yaml` declares only the generic tables. Each kind's schema names its fields and which are machine-computed versus the user's own judgment; registers never invent ad-hoc shapes.
 - **One truth database per project.** No database spans projects. Another tool's database stays its own file beside the truth database (below). A project opens a second store file only for a part with its own writer or its own lifecycle that references nothing in the first. A reference from one project's data to another's follows the crossing protocol (`estate-structure.md`).
 - **Scoring runs in the store; meaning stays with the owning project.** A register's scoring config (weights, thresholds, bands — the data-shape rule's config block) is authored by the owning project; the store executes it uniformly and stamps every score with config version, date, and an evidence pointer.
 - **Append-only assessments; the user's judgment layer is never overwritten** (data-shape rule points 2–3).
@@ -33,7 +33,7 @@
 
 ## Archive before delete
 
-- **Finished rows or files leave a live store only into a read-only archive.** The archive is read back equal (digests match) before anything is deleted, and the receipt of that readback is recorded in the same transaction as the delete.
+- **Finished rows or files leave a live store only into a read-only archive.** The archive is read back equal (digests match) before anything is deleted. For rows, the receipt of that readback is recorded in the same transaction as the delete. For files, the receipt is recorded durably first and the file is deleted after it, so an interruption leaves the file and its receipt, never neither; a later pass finishes the delete.
 - **What stays.** Anything still referenced, or newer than a grace age (set in the store's declared retention), stays in the live store.
 - **Room first.** A free-disk reserve check runs before the archive is written; short of the reserve, nothing is written and nothing is deleted.
 - **The producing project decides what is finished**, never the store.
@@ -42,7 +42,7 @@
 
 - **A database is never backed up by a plain copy of a live file** (it can capture a half-written page). It goes through a consistent snapshot or the engine's online backup, passes an integrity check, and lands by atomic rename. A file that cannot be copied keeps its previous copy and is named in the run's failure list; the other files still copy.
 - **What a backup leaves out:** `cache/` and what the declarations call `disposable`. An unreadable declaration leaves nothing out.
-- **The restore drill.** Restore the backup into a scratch location, check every database (integrity) and every file, and record a receipt: the date, what was restored, and what each check found. The drill recurs at a cadence the user confirms (the optional restore-drill entry in `hub/agent-jobs.yaml`). A drill older than its window is a clue for the next self-audit (`estate-structure.md`).
+- **The restore drill.** Restore the backup into a scratch location, check every database (integrity) and every file, and record a receipt: the date, what was restored, and what each check found. In the markdown form the receipt is a dated line under a Restore drills heading in `store/NOW.md`; once an engine runs, it is an `events` row of kind `restore-drill`. The drill recurs at a cadence the user confirms (the optional restore-drill entry in `hub/agent-jobs.yaml`). A drill older than its window is a clue for the next self-audit (`estate-structure.md`).
 - **Restoring one project to an earlier point** names the window of writes it loses. Dropping them is the user's call.
 
 ## Engine-side write safety

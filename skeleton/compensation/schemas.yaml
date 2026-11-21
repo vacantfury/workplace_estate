@@ -1,6 +1,8 @@
 # skeleton template · genome: corpus/store.md · remove this line at instantiation
 # Compensation's entity kinds on the store's generic tables (store/schemas/schemas.yaml); weights and bands live here too.
 
+schema_version: 1         # bumps on a removed or retyped field; an added field is minor
+
 entities:
   resource:               # compensation claims/windows
     machine: [name, eligibility, window, state]

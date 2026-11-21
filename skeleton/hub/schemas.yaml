@@ -1,15 +1,21 @@
 # skeleton template · genome: corpus/task-convention.md · remove this line at instantiation
 # The hub's own entity vocabulary: the task tool and the self-audit. Machine-computed
 # fields are split from user-judgment fields (the user layer is never overwritten).
-# These are the hub's own tables in its truth database, beside the store's generic
-# tables (store/schemas/schemas.yaml); other projects reach them only through the
-# crossing protocol (corpus/estate-structure.md).
+# One storage model: the task tool's tables (tasks, ticket, deadlines, dispositions,
+# claims) are the hub's own tables in its truth database; the other entries (decision,
+# failure_row, clue, problem) are entity kinds, stored as rows of the store's generic
+# tables (store/schemas/schemas.yaml) with kind set to the entry name. Other projects
+# reach either only through the crossing protocol (corpus/estate-structure.md).
+
+schema_version: 1         # bumps on a removed or retyped field; an added field is minor
 
 # Task semantics and transition refusals: corpus/task-convention.md.
 # Node references are {project, id}; parent is one nullable node reference.
 # A project is a registry node (hub/registry.yaml), never a task kind.
 task_model:
   kinds: [task, recurring-task, ticket, campaign, playbook, decision, invitation, notice, engagement, unclassified]
+  subtypes: {ticket: task, invitation: decision}   # a subtype is a kind, never a parent
+  containers: [campaign, playbook, engagement]     # only these parent work
   live_states: [active, dormant-after, dormant-when, waiting, someday, review]
   terminal_states: [done, dropped]   # withdrawn outcome closes as dropped
   wall_map_states: [unassessed, assessed-with-rows, assessed-none]
@@ -49,7 +55,7 @@ entities:
     machine: [id, kind, parent, project, home, title, body, state, tags, facets, result_class, added, closed, revision, wall_map_state, wall_map_revision, plan_revision, claim_generation, links, user_source, authority, next_step, responsible_party, review_at, consequence_class, consequence_evidence]
     user: [named_end, target, scope, rank, pin, hold]  # changed only through recorded user input; a hold is the user's word
   ticket:                 # one per check and project; reopens with a new spell
-    machine: [check, importance, since, fails, last_seen, evidence, items, tries, spells]
+    machine: [node, check, importance, since, fails, last_seen, evidence, items, tries, spells]   # node joins tasks
     user: []              # only the check's own pass closes it
   deadlines:
     machine: [id, node, date, time, timezone, strength, origin, knowledge, assumption, resolver, source, checked, applicability, lead_time, anchor, offset, revision, supersedes, retired, retired_evidence]
@@ -66,7 +72,7 @@ entities:
 
   # The self-audit (run only when the user starts it in a session).
   failure_row:
-    machine: [date, what, cause, level]   # level: critical|major|time|none|unknown; unknown stays visible, never counted as none
+    machine: [date, what, cause, level, severity]   # level: critical|major|time|none|unknown; unknown stays visible, never counted as none; severity: history on rows written before 8.0.0 only
     user: [note]
   clue:                   # a sign, found by a fixed rule written in advance, that a project's failure handling is not working
     machine: [rule, key, subject, first_seen, last_seen, state, pointers]

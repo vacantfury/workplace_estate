@@ -26,7 +26,7 @@ Automated work runs in an isolated workspace and enters the main state only thro
 
 ## The ticket repair run (optional)
 
-Runs only where scheduled runs are sanctioned (§Runtime adaptation, first case) and the user confirmed its trigger and cadence; until then its entry in `hub/agent-jobs.yaml` stays commented out. It works the tickets that checks have filed (`task-convention.md` §Tickets). It is not an audit and makes no clues.
+Runs only where scheduled runs are sanctioned (§Runtime adaptation, first case) and the user confirmed its trigger, its cadence and what it shows them; until then its entry in `hub/agent-jobs.yaml` stays commented out. It works the tickets that checks have filed (`task-convention.md` §Tickets). It is not an audit and makes no clues.
 
 - **One run a day.** Nothing a ticket does starts it.
 - **One session per project.** The session takes that project's due urgent and important tickets together.
