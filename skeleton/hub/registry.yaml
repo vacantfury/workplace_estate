@@ -15,7 +15,7 @@ projects:
   store:
     kind: infrastructure
     home: store/
-    state: [schemas/schemas.yaml]   # generic tables only; each project's vocabulary is its own schemas.yaml
+    state: [schemas/schemas.yaml, drills.md]   # generic tables only (each project's vocabulary is its own schemas.yaml) · restore-drill receipts
     genomes: [store]
     engine: markdown        # A7 answer: markdown-with-shape bootstrap | <embedded db> | <tooling memory>
     consumes: []

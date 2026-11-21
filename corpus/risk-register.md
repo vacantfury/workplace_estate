@@ -26,7 +26,7 @@ Failure management has two halves: reacting well when something breaks, and — 
 
 ## Calibration — score the predictions
 
-When something does fail, check the register before closing the incident: **predicted-and-plan-worked** (the system paid for itself) · **predicted-but-plan-failed** (fix the plan, not just the incident) · **unpredicted** (add the entry now, while the shape is fresh). Reviewing the hit-rate at natural retrospectives keeps prediction an honest, improving practice instead of a ceremony.
+When something does fail, check the register before closing the incident: **predicted-and-plan-worked** (the system paid for itself) · **predicted-but-plan-failed** (fix the plan, not just the incident) · **unpredicted** (add the entry now, while the shape is fresh). Reviewing the hit-rate at the retrospectives the user holds (`work-report.md`) keeps prediction an honest, improving practice instead of a ceremony.
 
 ## Seed premortem — the first 90 days (new-role ramp)
 

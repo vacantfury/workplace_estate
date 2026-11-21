@@ -33,7 +33,7 @@
 
 ## Archive before delete
 
-- **Finished rows or files leave a live store only into a read-only archive.** The archive is read back equal (digests match) before anything is deleted. For rows, the receipt of that readback is recorded in the same transaction as the delete. For files, the receipt is recorded durably first and the file is deleted after it, so an interruption leaves the file and its receipt, never neither; a later pass finishes the delete.
+- **Finished rows or files leave a live store only into a read-only archive.** The archive is read back equal (digests match) before anything is deleted. For rows, the receipt of that readback is recorded in the same transaction as the delete. For files, the receipt is recorded durably first and the file is deleted after it, so an interruption leaves the file and its receipt, never neither. A later pass finishes the delete only after rechecking the live file against the archived digest; a file that changed since its receipt stays and is archived again.
 - **What stays.** Anything still referenced, or newer than a grace age (set in the store's declared retention), stays in the live store.
 - **Room first.** A free-disk reserve check runs before the archive is written; short of the reserve, nothing is written and nothing is deleted.
 - **The producing project decides what is finished**, never the store.
@@ -42,7 +42,7 @@
 
 - **A database is never backed up by a plain copy of a live file** (it can capture a half-written page). It goes through a consistent snapshot or the engine's online backup, passes an integrity check, and lands by atomic rename. A file that cannot be copied keeps its previous copy and is named in the run's failure list; the other files still copy.
 - **What a backup leaves out:** `cache/` and what the declarations call `disposable`. An unreadable declaration leaves nothing out.
-- **The restore drill.** Restore the backup into a scratch location, check every database (integrity) and every file, and record a receipt: the date, what was restored, and what each check found. In the markdown form the receipt is a dated line under a Restore drills heading in `store/NOW.md`; once an engine runs, it is an `events` row of kind `restore-drill`. The drill recurs at a cadence the user confirms (the optional restore-drill entry in `hub/agent-jobs.yaml`). A drill older than its window is a clue for the next self-audit (`estate-structure.md`).
+- **The restore drill.** Restore the backup into a scratch location, check every database (integrity) and every file, and record a receipt: the date, what was restored, and what each check found. In the markdown form the receipt is a dated line in `store/drills.md`, an append-only log; once an engine runs, it is an `events` row of kind `restore-drill`. The drill recurs at a cadence the user confirms (the optional restore-drill entry in `hub/agent-jobs.yaml`). A drill older than its window is a clue for the next self-audit (`estate-structure.md`).
 - **Restoring one project to an earlier point** names the window of writes it loses. Dropping them is the user's call.
 
 ## Engine-side write safety

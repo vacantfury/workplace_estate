@@ -29,7 +29,7 @@ One line per module; the module itself is the full statement.
 
 - `store.md` — typed data + scoring service: generic tables (each project owns its vocabulary), four scoring folds, directed and two-time assessments, append-only + user-layer protection, data declarations and keep classes, consistent backups and the restore drill, archive before delete, intake with recorded drops; registers are its views.
 - `finder.md` — the retrieval bus: one query seam over the job's knowledge surfaces + sanctioned web (A8 roster); digs and watches ride it.
-- `ties.md` — the people-and-traffic bus on the employer's own surfaces: live person reads (no stores, principle 29), three-lane triage with proven sweep coverage, inert drafts, the meeting flow.
+- `ties.md` — the people-and-traffic bus on the employer's own surfaces: live person reads (no person or thread stores, principle 29), three-lane triage with proven sweep coverage, inert drafts, the meeting flow.
 - `llm_utils.md` — the LLM provider seam: routing, retries, structured output, usage ledger; founds at the first code consumer.
 - `devices.md` — the compute and device client: registry, dispatch seam, run state; founds at the first granted compute target.
 - `autoflow.md` — scheduler, cycles, isolated work units, checked promotion through a serialized merge queue, verification capacity, run ledger, liveness, and the optional ticket repair run; founds at the first sanctioned scheduled job.

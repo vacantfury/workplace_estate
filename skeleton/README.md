@@ -10,7 +10,7 @@ The installed estate's default directory tree, shipped as real files. The corpus
                  schemas.yaml (task model, tickets, self-audit rows) ·
                  self.md · decisions.md · failures.md · footprint.md · communication.md ·
                  _forms/ (lazy-founded kinds: lessons · handbook · campaign · playbook · stores)
-  store/         typed data + scoring service: schemas/schemas.yaml
+  store/         typed data + scoring service: schemas/schemas.yaml · drills.md
                  (generic tables only; each project owns its vocabulary)
   finder/        retrieval bus: sources.md (A8 knowledge roster)
   ties/          people-and-traffic bus: routing.md · drafts.md (no person stores — principle 29)
